@@ -1,54 +1,47 @@
-'ฎฏฐฒณดตถทธนบปผฝพฟม ภ ม ย รฤลฦวศษสหฬอฮฯะัาำิีึืฺุูÛÜÝÞ฿เแโ๐๑๒๓๔๕๖๗๘๙๚๛üýþÿ
-'ฝ ผ ป บ น ธ ท ถ ต ด ณ พ ฟ ภ ม ย ร ฤ ล ฦ ว ศ ษ ส ห ฬ อ ฮ ฯ ะ ั า ำ ิ ี ึ ื
+' symbols
+' ฎฏฐฒณดตถทธนบปผฝพฟม ภ ม ย รฤลฦวศษสหฬอฮฯะัาำิีึืฺุูÛÜÝÞ฿เแโ๐๑๒๓๔๕๖๗๘๙๚๛üýþÿ
+' ฝ ผ ป บ น ธ ท ถ ต ด ณ พ ฟ ภ ม ย ร ฤ ล ฦ ว ศ ษ ส ห ฬ อ ฮ ฯ ะ ั า ำ ิ ี ึ ื
+
+' shared variables
 COMMON SHARED player$, money, port, portstate()
 
-'player$=player name
-'money=money you have
-'port=number of menu4
-'portstate()=open or closed
-'inventory()=what you have
 
-
+' funcrion declarations
 DECLARE FUNCTION nospc$ (s$)
 DECLARE SUB box (s$, x1, y1, x2, y2, c1, c2, c3)
 DECLARE SUB accomodate (s$, x1, x2)
 DECLARE SUB menu (x, n)
 DECLARE SUB click1 ()
-
 DECLARE FUNCTION world ()
-
 DECLARE SUB requirement (s$)
-
 DECLARE SUB d1item (x, y, n, c, t)
 DECLARE SUB d1bars (x, y, n, c)
 DECLARE SUB d1squares (x, y, n, c)
 DECLARE SUB d1infusions (x, y, n, c)
 DECLARE SUB d1truffles (x, y, n, c)
-
 DECLARE FUNCTION r1item$ (n, x, t)
 DECLARE FUNCTION r1bars$ (n, x)
 DECLARE FUNCTION r1squares$ (n, x)
 DECLARE FUNCTION r1infusions$ (n, x)
 DECLARE FUNCTION r1truffles$ (n, x)
-
 DECLARE FUNCTION r1world$ (n, x)
 DECLARE FUNCTION cost (n, x)
-
 DECLARE SUB i1bars ()
 DECLARE SUB i1squares ()
 DECLARE SUB i1infusions ()
 DECLARE SUB i1truffles ()
-
 DECLARE FUNCTION win1$ (n)
 DECLARE FUNCTION win2$ (n, x)
-
 DECLARE SUB dnplayer (s$)
 DECLARE SUB dnmoney (m AS LONG)
 DECLARE FUNCTION dnitem$ ()
 DECLARE FUNCTION pause ()
 
+
+' m-variables = long
 DEFLNG M
-'keys
+
+' keys
 CONST backspc = 8, enter = 13, htab = 9, esc = 27
 CONST left = 75, right = 77, up = 72, down = 80
 CONST uplt = 71, uprt = 73, dnlt = 79, dnrt = 81
@@ -56,20 +49,18 @@ CONST insert = 82, home = 73, pageup = 71, del = 83, endk = 81, pagedn = 79
 CONST kf1 = 59, kf2 = 60, kf3 = 61, kf4 = 62, kf5 = 63, kf6 = 64, kf7 = 65, kf8 = 66, kf9 = 67, kf10 = 68, kf11 = 133, kf12 = 134
 
 
+' main
+GOTO nn
 GOTO game
 CLS
 COLOR 1
-PRINT "ษอออออออออออออออออออป"
-PRINT "บ Loading game ...  ำฤฤฤฤฤฤฤฤฤฤท"
+PRINT "ษออออออออออออออออออออออออออออออป"
+PRINT "บ Loading system ...           บ"
 PRINT "ศออออออออออออออออออออออออออออออผ"
 
 FOR i = 1 TO 78 STEP 3
 LOCATE 8, 1
 COLOR 12
-'FOR j = 1 TO 79
-'PRINT CHR$(178);
-'SOUND 21000, .1
-'NEXT
 box CHR$(176), i, 10, i + 3, 14, 4, 3, 2
 click1
 LOCATE 8, 1
@@ -82,19 +73,20 @@ COLOR 12
 PRINT SPC(25); "  บ                     บ"
 PRINT SPC(25); "ออฮอออออออออออออออออออออฮออ"
 PRINT SPC(25); "  วฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤถ"
-PRINT SPC(25); "  บ  CHOCOLATE FACTORY  บ"
+PRINT SPC(25); "  บ   CHOCOLATE  INFO   บ"
 PRINT SPC(25); "  วฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤถ"
 PRINT SPC(25); "ออฮอออออออออออออออออออออฮออ"
 PRINT SPC(25); "  บ                     บ"
 COLOR 15
-LOCATE 4, 31
-PRINT "CHOCOLATE FACTORY";
+LOCATE 4, 32
+PRINT "CHOCOLATE  INFO";
 
 'main menu
-box "                                Main menu", 1, 10, 80, 25, 7, 5, 4
+box "                                 Menu", 1, 10, 80, 25, 7, 5, 4
 menu 1, 1
 
 ps = 1
+k$ = ""
 DO UNTIL (k$ = CHR$(enter))
 k$ = ""
 WHILE k$ = ""
@@ -125,6 +117,7 @@ SOUND 21000, 40
 SYSTEM
 
 n1:
+' credits
 IF (ps = 4) THEN
 CLS
 COLOR 15, 0
@@ -138,8 +131,9 @@ k$ = INPUT$(1)
 CLS
 GOTO nn
 END IF
+
+' objective
 IF (ps = 3) THEN
-CLS
 COLOR 15, 0
 box "Objective", 1, 1, 40, 20, 7, 6, 4
 LOCATE 5, 3
@@ -150,6 +144,11 @@ PRINT "make more and more money";
 LOCATE 7, 3
 PRINT "by selling chocolates";
 k$ = INPUT$(1)
+GOTO nn
+END IF
+
+' controls
+IF (ps = 2) THEN
 box "Controls", 1, 1, 40, 20, 7, 6, 4
 LOCATE 5, 3
 COLOR 15
@@ -161,9 +160,11 @@ PRINT "Ctrl + letter is is the";
 LOCATE 8, 3
 PRINT "combination key for any task";
 k$ = INPUT$(1)
+k$ = ""
 CLS
 GOTO nn
 END IF
+
 IF (ps = 1) THEN GOTO game
 IF (ps = 2) THEN GOTO cont
 SYSTEM
@@ -174,16 +175,10 @@ SYSTEM
 game:
 'printing boxes
 CLS
-COLOR 10
-LOCATE 23, 1
-PRINT "ษออออออออหอออออออออออออหออออออหอออออออหออออออออออหออออออออออออออออหอออออออออออป";
-LOCATE 24, 1
-PRINT "บ Player บ 0000000000$ บ Item บ World บ Messages บ Factory Status บ Inventory บ";
-LOCATE 25, 1
-PRINT "ศออออออออสอออออออออออออสออออออสอออออออสออออออออออสออออออออออออออออสอออออออออออผ";
 d1bars 1, 1, 14, 0
 a$ = dnitem$
 
+GOTO nn
 
         
 
@@ -217,39 +212,43 @@ NEXT
 END SUB
 
 SUB box (s$, x1, y1, x2, y2, c1, c2, c3)
-FOR i = 1 TO x2 - x1 - 2
-        COLOR c3, 0
-        LOCATE y1, x1
-        PRINT "ษ";
-        LOCATE y1 + 1, x1
-        PRINT "บ";
-        LOCATE y1 + 2, x1
-        PRINT "ฬ";
 
-                FOR j = 1 TO i
-                SOUND 21000, .03
-                COLOR c3, 0
-                LOCATE y1, x1 + j
-                PRINT "อ";
-                LOCATE y1 + 2, x1 + j
-                PRINT "อ";
-                COLOR c1, c2
-                LOCATE y1 + 1, x1 + j
-                PRINT " ";
-                NEXT
-        COLOR c3, 0
-        LOCATE y1, x1 + i + 1
-        PRINT "ป";
-        LOCATE y1 + 1, x1 + i + 1
-        PRINT "บ";
-        LOCATE y1 + 2, x1 + i + 1
-        PRINT "น";
-        LOCATE y1 + 3, x1
-        PRINT "ศ";
-        FOR k = x1 + 1 TO x1 + i
-        PRINT "อ";
-        NEXT
-        PRINT "ผ";
+FOR i = 1 TO x2 - x1 - 2
+COLOR c3, 0
+LOCATE y1, x1
+PRINT "ษ";
+LOCATE y1 + 1, x1
+PRINT "บ";
+LOCATE y1 + 2, x1
+PRINT "ฬ";
+
+FOR j = 1 TO i
+SOUND 21000, .001
+COLOR c3, 0
+LOCATE y1, x1 + j
+PRINT "อ";
+LOCATE y1 + 2, x1 + j
+PRINT "อ";
+COLOR c1, c2
+LOCATE y1 + 1, x1 + j
+PRINT " ";
+NEXT
+
+COLOR c3, 0
+LOCATE y1, x1 + i + 1
+PRINT "ป";
+LOCATE y1 + 1, x1 + i + 1
+PRINT "บ";
+LOCATE y1 + 2, x1 + i + 1
+PRINT "น";
+LOCATE y1 + 3, x1
+PRINT "ศ";
+
+FOR k = x1 + 1 TO x1 + i
+PRINT "อ";
+NEXT
+
+PRINT "ผ";
 NEXT
 
 LOCATE y1 + 1, x1 + 1
@@ -257,21 +256,24 @@ COLOR c1, c2
 PRINT s$;
 
 d = x2 - x1 - 2
-
 COLOR c3, 0
 
 FOR i = y1 + 3 TO y2
-        FOR j = y1 + 3 TO i - 1
-                SOUND 21000, .1
-                LOCATE j, x1
-                PRINT "บ"; SPC(d); "บ";
-        NEXT
-        LOCATE i, x1
-        PRINT "ศ";
-        FOR k = 1 TO d
-                PRINT "อ";
-        NEXT
-        PRINT "ผ";
+
+FOR j = y1 + 3 TO i - 1
+SOUND 21000, .1
+LOCATE j, x1
+PRINT "บ"; SPC(d); "บ";
+NEXT
+
+LOCATE i, x1
+PRINT "ศ";
+
+FOR k = 1 TO d
+PRINT "อ";
+NEXT
+
+PRINT "ผ";
 NEXT
 
 END SUB
@@ -690,7 +692,9 @@ area(i, j) = SCREEN(i, j)
 cl(i, j) = SCREEN(i, j, 1)
 NEXT
 NEXT
-dnitem1: box "Items", 1, 1, 81, 25, 12, 13, 14
+dnitem1:
+CLS
+box "Items", 1, 1, 81, 25, 12, 13, 14
 menu 2, 1
 ps = 1
 k$ = ""
@@ -736,13 +740,7 @@ END IF
 
 IF (k$ = CHR$(enter)) THEN
 k$ = win1$(ps)
-IF (k$ = CHR$(esc)) THEN
-GOTO eitem
-ELSEIF (k$ = "`") THEN
 GOTO dnitem1
-ELSE
-GOTO eitem
-END IF
 END IF
 
 eitem: dnitem$ = k$
@@ -1024,13 +1022,13 @@ SELECT CASE x
 CASE 1
 IF (n = 1) THEN COLOR 3, 1 ELSE COLOR 3, 0
 LOCATE 14, 35
-PRINT "New game";
+PRINT "Browse Chocolates";
 IF (n = 2) THEN COLOR 3, 1 ELSE COLOR 3, 0
 LOCATE 16, 35
-PRINT "Continue";
+PRINT "Controls";
 IF (n = 3) THEN COLOR 3, 1 ELSE COLOR 3, 0
 LOCATE 18, 35
-PRINT "Options";
+PRINT "Objective";
 IF (n = 4) THEN COLOR 3, 1 ELSE COLOR 3, 0
 LOCATE 20, 35
 PRINT "Credits";
@@ -2223,7 +2221,8 @@ PRINT "Recipie Book.";
 
 COLOR 6
 LOCATE 2, 18
-PRINT r1item$(1, 1, n);
+item$ = r1item$(1, 1, n)
+PRINT item$; STRING$(60 - LEN(item$), 32);
 d1item 8, 3, 1, 1, n
 
 ps = 1
@@ -2268,9 +2267,7 @@ IF (k$ = CHR$(esc)) THEN GOTO win1e
 IF (k$ = "`") THEN GOTO win1e
 IF (k$ = CHR$(enter)) THEN
 k$ = win2$(n, ps)
-IF (k$ = CHR$(esc)) THEN GOTO win1e
-IF (k$ = "`") THEN GOTO win13
-IF (k$ = CHR$(enter)) THEN GOTO win1e
+GOTO win13
 END IF
 GOTO win1e
 
@@ -2285,7 +2282,8 @@ c = ((ps - 1) MOD 5) * 15 + 3
 d1item l, c, ps, 1, n
 COLOR 6
 LOCATE 2, 18
-PRINT r1item$(ps, 1, n);
+item$ = r1item$(ps, 1, n)
+PRINT item$; STRING$(60 - LEN(item$), 32);
 RETURN
 
 win1e:
