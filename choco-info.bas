@@ -1,12 +1,23 @@
 'ฎฏฐฒณดตถทธนบปผฝพฟม ภ ม ย รฤลฦวศษสหฬอฮฯะัาำิีึืฺุู฿เแโ๐๑๒๓๔๕๖๗๘๙๚๛
 'ฝ ผ ป บ น ธ ท ถ ต ด ณ พ ฟ ภ ม ย ร ฤ ล ฦ ว ศ ษ ส ห ฬ อ ฮ ฯ ะ ั า ำ ิ ี ึ ื
-COMMON SHARED player$, money
+COMMON SHARED player$, money, port, portstate()
+
+'player$=player name
+'money=money you have
+'port=number of menu4
+'portstate()=open or closed
+'inventory()=what you have
 
 
+DECLARE FUNCTION nospc$ (s$)
 DECLARE SUB box (s$, x1, y1, x2, y2, c1, c2, c3)
 DECLARE SUB accomodate (s$, x1, x2)
 DECLARE SUB menu (x, n)
 DECLARE SUB click1 ()
+
+DECLARE FUNCTION world ()
+
+DECLARE SUB requirement (s$)
 
 DECLARE SUB d1item (x, y, n, c, t)
 DECLARE SUB d1bars (x, y, n, c)
@@ -20,16 +31,21 @@ DECLARE FUNCTION r1squares$ (n, x)
 DECLARE FUNCTION r1infusions$ (n, x)
 DECLARE FUNCTION r1truffles$ (n, x)
 
+DECLARE FUNCTION r1world$ (n, x)
+DECLARE FUNCTION cost (n, x)
+
 DECLARE SUB i1bars ()
 DECLARE SUB i1squares ()
 DECLARE SUB i1infusions ()
 DECLARE SUB i1truffles ()
 
-DECLARE FUNCTION win1 (n)
+DECLARE FUNCTION win1$ (n)
+DECLARE FUNCTION win2$ (n, x)
 
 DECLARE SUB dnplayer (s$)
 DECLARE SUB dnmoney (m AS LONG)
 DECLARE FUNCTION dnitem$ ()
+DECLARE FUNCTION pause ()
 
 DEFLNG M
 'keys
@@ -38,6 +54,7 @@ CONST left = 75, right = 77, up = 72, down = 80
 CONST uplt = 71, uprt = 73, dnlt = 79, dnrt = 81
 CONST insert = 82, home = 73, pageup = 71, del = 83, endk = 81, pagedn = 79
 CONST kf1 = 59, kf2 = 60, kf3 = 61, kf4 = 62, kf5 = 63, kf6 = 64, kf7 = 65, kf8 = 66, kf9 = 67, kf10 = 68, kf11 = 133, kf12 = 134
+
 
 GOTO game
 CLS
@@ -165,10 +182,10 @@ PRINT "บ Player บ 0000000000$ บ Item บ World บ Messages บ Factory St
 LOCATE 25, 1
 PRINT "ศออออออออสอออออออออออออสออออออสอออออออสออออออออออสออออออออออออออออสอออออออออออผ";
 d1bars 1, 1, 14, 0
+a$ = dnitem$
 
 
-
-
+        
 
 
 cont:
@@ -267,6 +284,46 @@ SOUND i * 5, .05
 NEXT
 END SUB
 
+FUNCTION cost (n, x)
+SHARED port
+
+DIM plc(15)
+plc(1) = 1005
+plc(2) = 1505
+plc(3) = 1208
+plc(4) = 1710
+plc(5) = 1312
+plc(6) = 2220
+plc(7) = 3201
+plc(8) = 3210
+plc(9) = 5020
+plc(10) = 4505
+plc(11) = 6010
+plc(12) = 6506
+plc(13) = 7013
+plc(14) = 7522
+plc(15) = 6805
+
+
+pp1 = INT(plc(port) / 100)
+pp2 = plc(port) MOD 100
+lp1 = INT(plc(n) / 100)
+lp2 = plc(n) MOD 100
+dis = INT(SQR(ABS(pp1 - lp1) * ABS(pp1 - lp1) + ABS(pp2 - lp2) * ABS(pp2 - lp2)))
+
+SELECT CASE x
+CASE 1
+rt = INT(dis / 5)
+IF (rt = 0) THEN rt = 1
+CASE 2
+rt = INT(31.4 * dis)
+CASE 3
+IF (dis <= 5) THEN rt = 1 ELSE rt = 2
+CASE ELSE
+END SELECT
+cost = rt
+END FUNCTION
+
 SUB d1bars (x, y, n, c)
 IF (c = 1) THEN z = 16
 SELECT CASE n
@@ -281,7 +338,7 @@ c2 = 6
 c3 = 4
 s$ = "ฤ"
 CASE 3
-c1 = 15
+c1 = 6
 c2 = 7
 c3 = 15
 s$ = "ฤ"
@@ -336,8 +393,8 @@ c2 = 0
 c3 = 6
 s$ = "ฒ"
 CASE 14
-c1 = 7
-c2 = 15
+c1 = 15
+c2 = 7
 c3 = 7
 s$ = "ฤ"
 CASE 15
@@ -452,7 +509,7 @@ PRINT "ศอผ";
 
 END SUB
 
-SUB d1item (x, y, n, c, t)
+SUB d1item (y, x, n, c, t)
 SELECT CASE t
 CASE 1
 d1bars x, y, n, c
@@ -626,17 +683,17 @@ PRINT "ศอผ";
 END SUB
 
 FUNCTION dnitem$
-DIM area1(25, 80)
-DIM area2(25, 80)
+DIM area(25, 80), cl(25, 80)
 FOR i = 1 TO 25
 FOR j = 1 TO 80
-area1(i, j) = SCREEN(i, j)
-area2(i, j) = SCREEN(i, j, 0)
+area(i, j) = SCREEN(i, j)
+cl(i, j) = SCREEN(i, j, 1)
 NEXT
 NEXT
-box "Items", 1, 1, 80, 25, 12, 13, 14
+dnitem1: box "Items", 1, 1, 81, 25, 12, 13, 14
 menu 2, 1
 ps = 1
+k$ = ""
 DO UNTIL (k$ = CHR$(enter) OR k$ = CHR$(esc))
 k$ = ""
 WHILE k$ = ""
@@ -660,21 +717,32 @@ EXIT DO
 CASE ELSE
 END SELECT
 LOOP
+
 IF (k$ = CHR$(esc)) THEN GOTO eitem
-IF (k$ = "'") THEN
+IF (k$ = "`") THEN
+CLS
 FOR i = 1 TO 25
 FOR j = 1 TO 80
-COLOR area2(i, j) MOD 32, INT(area2(i, j) / 32)
 LOCATE i, j
-PRINT CHR$(area1(i, j));
+cl1 = INT(cl(i, j) / 128) + (cl(i, j) MOD 16)
+cl2 = INT(cl(i, j) / 16) MOD 8
+COLOR cl1, cl2
+PRINT CHR$(area(i, j));
 NEXT
 NEXT
+ERASE area, cl
 GOTO eitem
 END IF
+
 IF (k$ = CHR$(enter)) THEN
-
-
-
+k$ = win1$(ps)
+IF (k$ = CHR$(esc)) THEN
+GOTO eitem
+ELSEIF (k$ = "`") THEN
+GOTO dnitem1
+ELSE
+GOTO eitem
+END IF
 END IF
 
 eitem: dnitem$ = k$
@@ -970,6 +1038,7 @@ IF (n = 5) THEN COLOR 3, 1 ELSE COLOR 3, 0
 LOCATE 22, 35
 PRINT "Quit";
 CASE 2
+
 IF (n = 1) THEN COLOR 17 ELSE COLOR 1
 LOCATE 5, 30
 PRINT "  ฎ Bars ฏ";
@@ -982,10 +1051,110 @@ PRINT "ฎ Infusions ฏ";
 IF (n = 4) THEN COLOR 17 ELSE COLOR 1
 LOCATE 11, 30
 PRINT "ฎ Truffles ฏ";
+CASE 3
+
+IF (n = 1) THEN COLOR 10, 11 ELSE COLOR 10, 0
+LOCATE 8, 20
+PRINT "Resume game";
+IF (n = 2) THEN COLOR 10, 11 ELSE COLOR 10, 0
+LOCATE 9, 20
+PRINT "Main menu";
+
+CASE 4
+IF (n = 1) THEN COLOR 10, 15 ELSE COLOR 10, 0
+LOCATE 4, 20
+PRINT "San Francisco";
+IF (n = 2) THEN COLOR 10, 15 ELSE COLOR 10, 0
+LOCATE 5, 20
+PRINT "New York";
+IF (n = 3) THEN COLOR 10, 15 ELSE COLOR 10, 0
+LOCATE 6, 20
+PRINT "Merida";
+IF (n = 4) THEN COLOR 10, 15 ELSE COLOR 10, 0
+LOCATE 7, 20
+PRINT "Trinidad";
+IF (n = 5) THEN COLOR 10, 15 ELSE COLOR 10, 0
+LOCATE 8, 20
+PRINT "Quito";
+IF (n = 6) THEN COLOR 10, 15 ELSE COLOR 10, 0
+LOCATE 9, 20
+PRINT "Rio de Janerio";
+IF (n = 7) THEN COLOR 10, 15 ELSE COLOR 10, 0
+LOCATE 10, 20
+PRINT "London";
+IF (n = 8) THEN COLOR 10, 15 ELSE COLOR 10, 0
+LOCATE 11, 20
+PRINT "Accra";
+IF (n = 9) THEN COLOR 10, 15 ELSE COLOR 10, 0
+LOCATE 12, 20
+PRINT "Istanbul";
+IF (n = 10) THEN COLOR 10, 15 ELSE COLOR 10, 0
+LOCATE 13, 20
+PRINT "Mahajanga";
+IF (n = 11) THEN COLOR 10, 15 ELSE COLOR 10, 0
+LOCATE 14, 20
+PRINT "Colombo";
+IF (n = 12) THEN COLOR 10, 15 ELSE COLOR 10, 0
+LOCATE 15, 20
+PRINT "Hong Kong";
+IF (n = 13) THEN COLOR 10, 15 ELSE COLOR 10, 0
+LOCATE 16, 20
+PRINT "Sulawesi";
+IF (n = 14) THEN COLOR 10, 15 ELSE COLOR 10, 0
+LOCATE 17, 20
+PRINT "Sydney";
+IF (n = 15) THEN COLOR 10, 15 ELSE COLOR 10, 0
+LOCATE 18, 20
+PRINT "Rourkela";
+
 CASE ELSE
 END SELECT
 
 END SUB
+
+FUNCTION nospc$ (s$)
+a$ = ""
+FOR i = 1 TO LEN(s$)
+b$ = MID$(s$, i, 1)
+IF (b$ <> " ") THEN a$ = a$ + b$
+NEXT
+nospc$ = a$
+END FUNCTION
+
+FUNCTION pause
+box "Pause", 10, 4, 50, 12, 4, 5, 6
+menu 3, 1
+k$ = ""
+ps = 1
+DO UNTIL (k$ = CHR$(esc) OR k$ = CHR$(enter))
+k$ = ""
+WHILE k$ = ""
+k$ = INKEY$
+WEND
+SELECT CASE k$
+CASE CHR$(0) + CHR$(up)
+IF (ps = 1) THEN ps = 2 ELSE ps = 1
+menu 3, ps
+CASE CHR$(0) + CHR$(down)
+IF (ps = 1) THEN ps = 2 ELSE ps = 1
+menu 3, ps
+CASE CHR$(esc)
+EXIT DO
+CASE CHR$(enter)
+EXIT DO
+CASE ELSE
+END SELECT
+LOOP
+CLS
+IF (k$ = CHR$(esc)) THEN
+ps = 1
+GOTO pausee
+ELSEIF (k$ = CHR$(enter)) THEN
+GOTO pausee
+END IF
+pausee:
+pause = ps
+END FUNCTION
 
 FUNCTION r1bars$ (n, x)
 'Sugar                  s
@@ -1063,7 +1232,7 @@ CASE 6
         CASE 1
         r$ = "Chocolate Bars w/Coffee"
         CASE 2
-        r$ = "Dense chocolate with real roasted coffee you will savor at then finish."
+        r$ = "Dense chocolate with real roasted coffee you will savor at the finish."
         CASE 3
         r$ = "scb"
         CASE ELSE
@@ -1073,7 +1242,7 @@ CASE 7
         CASE 1
         r$ = "Chocolate Bars w/Trinidad Lemons"
         CASE 2
-        r$ = "Fresh lemons from Trinidad provide an intense burst of tangy,sweet flavour."
+        r$ = "Fresh lemons from Trinidad provide an intense burst of tangy, sweet flavour."
         CASE 3
         r$ = "sct"
         CASE ELSE
@@ -1093,7 +1262,7 @@ CASE 9
         CASE 1
         r$ = "Exclusive Quito Cacao Chocolate Bars"
         CASE 2
-        r$ = "The finest Quito cacao lends these bars a unique taste that lingers on the palate."
+        r$ = "The finest Quito cacao lends these bars a unique taste that lingers on the plate."
         CASE 3
         r$ = "sqq"
         CASE ELSE
@@ -1361,6 +1530,7 @@ CASE 4
 z$ = r1truffles$(n, x)
 CASE ELSE
 END SELECT
+r1item$ = z$
 END FUNCTION
 
 FUNCTION r1squares$ (n, x)
@@ -1403,7 +1573,7 @@ CASE 2
         CASE 1
         r$ = "Dark Chocolate Squares w/Cashews"
         CASE 2
-        r$ = "Fresh cashews, encased in rich, dark chocolate, shped into squares."
+        r$ = "Fresh cashews, encased in rich, dark chocolate, shaped into squares."
         CASE 3
         r$ = "sccn"
         CASE ELSE
@@ -1473,7 +1643,7 @@ CASE 9
         CASE 1
         r$ = "Coffee Chocolate Squares"
         CASE 2
-        r$ = "Rich, coffee-flavoured chocolate squares are perfect fo entertaining."
+        r$ = "Rich, coffee-flavoured chocolate squares are perfect for entertaining."
         CASE 3
         r$ = "sccb"
         CASE ELSE
@@ -1579,7 +1749,7 @@ CASE 1
         CASE 1
         r$ = "Dark Chocolate Truffles"
         CASE 2
-        r$ = "Rich, dark chocolate filling in a dark chcolate case, dusted with truffle powder."
+        r$ = "Rich, dark chocolate filling in a dark chocolate case, dusted with truffle powder."
         CASE 3
         r$ = "sscccf"
         CASE ELSE
@@ -1730,8 +1900,226 @@ r1truffles$ = r$
 
 END FUNCTION
 
-FUNCTION win1 (n)
-CLS
+FUNCTION r1world$ (n, x)
+SHARED port, portstate()
+SELECT CASE n
+CASE 1
+        SELECT CASE x
+        CASE 1
+        r$ = "San Francisco"
+        CASE 2
+        r$ = "North America"
+        CASE ELSE
+        END SELECT
+CASE 2
+        SELECT CASE x
+        CASE 1
+        r$ = "New York"
+        CASE 2
+        r$ = "North America"
+        CASE ELSE
+        END SELECT
+CASE 3
+        SELECT CASE x
+        CASE 1
+        r$ = "Merida"
+        CASE 2
+        r$ = "North America"
+        CASE ELSE
+        END SELECT
+CASE 4
+        SELECT CASE x
+        CASE 1
+        r$ = "Trinidad"
+        CASE 2
+        r$ = "South America"
+        CASE ELSE
+        END SELECT
+CASE 5
+        SELECT CASE x
+        CASE 1
+        r$ = "Quito"
+        CASE 2
+        r$ = "South America"
+        CASE ELSE
+        END SELECT
+CASE 6
+        SELECT CASE x
+        CASE 1
+        r$ = "Rio de Janerio"
+        CASE 2
+        r$ = "South America"
+        CASE ELSE
+        END SELECT
+CASE 7
+        SELECT CASE x
+        CASE 1
+        r$ = "London"
+        CASE 2
+        r$ = "Europe"
+        CASE ELSE
+        END SELECT
+CASE 8
+        SELECT CASE x
+        CASE 1
+        r$ = "Accra"
+        CASE 2
+        r$ = "Africa"
+        CASE ELSE
+        END SELECT
+CASE 9
+        SELECT CASE x
+        CASE 1
+        r$ = "Istanbul"
+        CASE 2
+        r$ = "Asia"
+        CASE ELSE
+        END SELECT
+CASE 10
+        SELECT CASE x
+        CASE 1
+        r$ = "Mahahjanga"
+        CASE 2
+        r$ = "Africa"
+        CASE ELSE
+        END SELECT
+CASE 11
+        SELECT CASE x
+        CASE 1
+        r$ = "Colombo"
+        CASE 2
+        r$ = "Asia"
+        CASE ELSE
+        END SELECT
+CASE 12
+        SELECT CASE x
+        CASE 1
+        r$ = "Hong Kong"
+        CASE 2
+        r$ = "Asia"
+        CASE ELSE
+        END SELECT
+CASE 13
+        SELECT CASE x
+        CASE 1
+        r$ = "Sulawesi"
+        CASE 2
+        r$ = "Asia"
+        CASE ELSE
+        END SELECT
+CASE 14
+        SELECT CASE x
+        CASE 1
+        r$ = "Sydney"
+        CASE 2
+        r$ = "Australia"
+        CASE ELSE
+        END SELECT
+CASE 15
+        SELECT CASE x
+        CASE 1
+        r$ = "Rourkela"
+        CASE 2
+        r$ = "Asia"
+        CASE ELSE
+        END SELECT
+CASE ELSE
+END SELECT
+
+IF (x = 3) THEN
+IF (portstate(n) = 0) THEN r$ = "Port is closed."
+IF (port = n) THEN r$ = "You are here." ELSE r$ = "A " + nospc$(STR$(cost(n, 1))) + "-week journey."
+ELSEIF (x = 4) THEN
+IF (port <> n) THEN r$ = "This trip will cost $" + nospc$(STR$(cost(n, 2)))
+END IF
+r1world$ = r$
+END FUNCTION
+
+SUB requirement (s$)
+'Sugar                  s
+'cacao baeans           c
+'milk soli              m
+'almonds                a
+'cashew nuts            n
+'coffee beans           b
+'trinidad lemons        t
+'mint leaves            l
+'quito cacao            q
+'trinidad cacao         r
+'mahajanga cacao        h
+'colombo cacao          o
+'hazelnuts              z
+'bing cherris           i
+'cinnamon               d
+'caramel                e
+'vanilla                v
+'coconut shavings       u
+'raspberries            p
+'sulawesi cacao         w
+'macadamia nuts         x
+'truffle powder         f
+ln = CSRLIN
+cl = POS(ln)
+COLOR 9
+FOR i = 1 TO LEN(s$)
+LOCATE ln, cl
+k$ = MID$(s$, i, 1)
+
+SELECT CASE k$
+CASE "s"
+z$ = "Sugar"
+CASE "c"
+z$ = "Cacao beans"
+CASE "m"
+z$ = "Milk solids"
+CASE "a"
+z$ = "Almonds"
+CASE "n"
+z$ = "Cashew nuts"
+CASE "b"
+z$ = "Coffee beans"
+CASE "t"
+z$ = "Trinidad lemons"
+CASE "l"
+z$ = "Mint leaves"
+CASE "q"
+z$ = "Quito cacao"
+CASE "r"
+z$ = "Trinidad cacao"
+CASE "h"
+z$ = "Mahajanga cacao"
+CASE "o"
+z$ = "Colombo cacao"
+CASE "z"
+z$ = "Hazelnuts"
+CASE "i"
+z$ = "Bing cherries"
+CASE "d"
+z$ = "Cinnamon"
+CASE "e"
+z$ = "Caramel"
+CASE "v"
+z$ = "Vanilla"
+CASE "u"
+z$ = "Coconut shavings"
+CASE "p"
+z$ = "Raspberries"
+CASE "w"
+z$ = "Sulawesi cacao"
+CASE "x"
+z$ = "Macadamia nuts"
+CASE "f"
+z$ = "Truffle powder"
+CASE ELSE
+END SELECT
+PRINT "๘  "; z$;
+ln = ln + 1
+NEXT
+
+END SUB
+
+FUNCTION win1$ (n)
+win13: CLS
 
 COLOR 1
 LOCATE 1, 1
@@ -1748,7 +2136,7 @@ PRINT "อ";
 NEXT
 PRINT "ป";
 LOCATE 2, 16
-PRINT "บ"; SPC(61); "บ";
+PRINT "บ"; SPC(62); "บ";
 LOCATE 3, 16
 PRINT "ศ";
 FOR i = 17 TO 78
@@ -1827,10 +2215,202 @@ d1item 18, 33, 13, 0, n
 d1item 18, 48, 14, 0, n
 d1item 18, 63, 15, 0, n
 
+COLOR 5
 LOCATE 23, 3
 PRINT "Select a chocolate to view its page in the";
 LOCATE 24, 16
 PRINT "Recipie Book.";
 
+COLOR 6
+LOCATE 2, 18
+PRINT r1item$(1, 1, n);
+d1item 8, 3, 1, 1, n
+
+ps = 1
+k$ = ""
+DO UNTIL (k$ = "`" OR k$ = CHR$(esc) OR k$ = CHR$(enter))
+k$ = ""
+WHILE k$ = ""
+k$ = INKEY$
+WEND
+
+SELECT CASE k$
+
+CASE CHR$(0) + CHR$(left)
+GOSUB win11
+ps = ps - 1
+IF (ps < 1) THEN ps = 15
+GOSUB win12
+CASE CHR$(0) + CHR$(right)
+GOSUB win11
+ps = ps + 1
+IF (ps > 15) THEN ps = 1
+GOSUB win12
+CASE CHR$(0) + CHR$(up)
+GOSUB win11
+ps = ps - 5
+IF (ps < 1) THEN ps = 15 - 1 + ps
+GOSUB win12
+CASE CHR$(0) + CHR$(down)
+GOSUB win11
+ps = (((ps - 1) + 5) MOD 15) + 1
+GOSUB win12
+CASE CHR$(esc)
+EXIT DO
+CASE "`"
+EXIT DO
+CASE CHR$(enter)
+EXIT DO
+CASE ELSE
+END SELECT
+LOOP
+IF (k$ = CHR$(esc)) THEN GOTO win1e
+IF (k$ = "`") THEN GOTO win1e
+IF (k$ = CHR$(enter)) THEN
+k$ = win2$(n, ps)
+IF (k$ = CHR$(esc)) THEN GOTO win1e
+IF (k$ = "`") THEN GOTO win13
+IF (k$ = CHR$(enter)) THEN GOTO win1e
+END IF
+GOTO win1e
+
+win11:
+l = (INT((ps / 5) - .1) * 5) + 8
+c = ((ps - 1) MOD 5) * 15 + 3
+d1item l, c, ps, 0, n
+RETURN
+win12:
+l = (INT((ps / 5) - .1) * 5) + 8
+c = ((ps - 1) MOD 5) * 15 + 3
+d1item l, c, ps, 1, n
+COLOR 6
+LOCATE 2, 18
+PRINT r1item$(ps, 1, n);
+RETURN
+
+win1e:
+win1$ = k$
+END FUNCTION
+
+FUNCTION win2$ (na, xa)
+CLS
+COLOR 1
+LOCATE 1, 1
+PRINT "ษอออออออออออป";
+LOCATE 2, 1
+PRINT "บ           บ";
+LOCATE 3, 1
+PRINT "ศอออออออออออผ";
+COLOR 2
+LOCATE 1, 16
+PRINT "ษ";
+FOR i = 17 TO 78
+PRINT "อ";
+NEXT
+PRINT "ป";
+LOCATE 2, 16
+PRINT "บ"; SPC(62); "บ";
+LOCATE 3, 16
+PRINT "ศ";
+FOR i = 17 TO 78
+PRINT "อ";
+NEXT
+PRINT "ผ";
+LOCATE 2, 3
+COLOR 3
+SELECT CASE na
+CASE 1
+PRINT "Bars";
+CASE 2
+PRINT "Squares";
+CASE 3
+PRINT "Infusions";
+CASE 4
+PRINT "Truffles";
+CASE ELSE
+END SELECT
+COLOR 6
+LOCATE 2, 18
+PRINT r1item$(xa, 1, na);
+
+
+d1item 4, 5, xa, 0, na
+COLOR 7
+LOCATE 6, 20
+accomodate r1item$(xa, 2, na), 20, 70
+LOCATE 10, 20
+COLOR 9
+PRINT "This recipie requires:";
+LOCATE 12, 25
+requirement r1item$(xa, 3, na)
+
+DO UNTIL (k$ = CHR$(esc) OR k$ = "`" OR k$ = CHR$(enter))
+k$ = ""
+WHILE k$ = ""
+k$ = INKEY$
+WEND
+SELECT CASE k$
+CASE CHR$(esc)
+EXIT DO
+CASE "'"
+EXIT DO
+CASE CHR$(enter)
+EXIT DO
+CASE ELSE
+END SELECT
+LOOP
+IF (k$ = CHR$(esc)) THEN GOTO win2e
+IF (k$ = "`") THEN GOTO win2e
+IF (k$ = CHR$(enter)) THEN k$ = nospc$(STR$(na) + STR$(xa))
+
+win2e:
+win2$ = k$
+END FUNCTION
+
+FUNCTION world
+COLOR 1
+LOCATE 1, 1
+PRINT "ษอออออออออออป";
+LOCATE 2, 1
+PRINT "บ           บ";
+LOCATE 3, 1
+PRINT "ศอออออออออออผ";
+COLOR 2
+LOCATE 2, 3
+PRINT "World";
+COLOR 3
+FOR i = 20 TO 25
+LOCATE i, 1
+PRINT ""; SPC(78); "";
+NEXT
+
+ps = 1
+menu 1, 4
+DO UNTIL (k$ = CHR$(enter) OR k$ = "`")
+k$ = ""
+WHILE (k$ = "")
+k$ = INKEY$
+WEND
+
+SELECT CASE k$
+CASE CHR$(0) + CHR$(up)
+ps = ps - 1
+IF (ps < 1) THEN ps = 15
+menu ps, 4
+CASE CHR$(0) + CHR$(down)
+ps = ps + 1
+IF (ps > 15) THEN ps = 1
+menu ps, 4
+CASE "`"
+EXIT DO
+CASE CHR$(enter)
+EXIT DO
+CASE ELSE
+END SELECT
+LOOP
+
+IF (k$ = CHR$(enter)) THEN x = ps
+CLS
+world = x
 END FUNCTION
 
