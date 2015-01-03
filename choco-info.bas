@@ -1,5 +1,5 @@
-'ฎฏฐฒณดตถทธนบปผฝพฟม ภ ม ย รฤลฦวศษสหฬอฮฯะัาำิีึืฺุู฿เแโ๐๑๒๓๔๕๖๗๘๙๚๛
-'ฝ ผ ป บ น ธ ท ถ ต ด ณ พ ฟ ภ ม ย ร ฤ ล ฦ ว ศ ษ ส ห ฬ อ ฮ ฯ ะ ั า ำ ิ ี ึ ื
+'������������������ � � � ������������������������������������������������
+'� � � � � � � � � � � � � � � � � � � � � � � � � � � � � � � � � � � � �
 COMMON SHARED player$, money, port, portstate()
 
 'player$=player name
@@ -59,9 +59,9 @@ CONST kf1 = 59, kf2 = 60, kf3 = 61, kf4 = 62, kf5 = 63, kf6 = 64, kf7 = 65, kf8 
 GOTO game
 CLS
 COLOR 1
-PRINT "ษอออออออออออออออออออป"
-PRINT "บ Loading game ...  ำฤฤฤฤฤฤฤฤฤฤท"
-PRINT "ศออออออออออออออออออออออออออออออผ"
+PRINT "�������������������ͻ"
+PRINT "� Loading game ...  ����������ķ"
+PRINT "������������������������������ͼ"
 
 FOR i = 1 TO 78 STEP 3
 LOCATE 8, 1
@@ -79,13 +79,13 @@ NEXT
 
 nn: CLS
 COLOR 12
-PRINT SPC(25); "  บ                     บ"
-PRINT SPC(25); "ออฮอออออออออออออออออออออฮออ"
-PRINT SPC(25); "  วฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤถ"
-PRINT SPC(25); "  บ  CHOCOLATE FACTORY  บ"
-PRINT SPC(25); "  วฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤถ"
-PRINT SPC(25); "ออฮอออออออออออออออออออออฮออ"
-PRINT SPC(25); "  บ                     บ"
+PRINT SPC(25); "  �                     �"
+PRINT SPC(25); "���������������������������"
+PRINT SPC(25); "  ���������������������Ķ"
+PRINT SPC(25); "  �  CHOCOLATE FACTORY  �"
+PRINT SPC(25); "  ���������������������Ķ"
+PRINT SPC(25); "���������������������������"
+PRINT SPC(25); "  �                     �"
 COLOR 15
 LOCATE 4, 31
 PRINT "CHOCOLATE FACTORY";
@@ -170,17 +170,17 @@ SYSTEM
 
 
 
-'ฝ ผ ป บ น ธ ท ถ ต ด ณ พ ฟ ภ ม ย ร ฤ ล ฦ ว ศ ษ ส ห ฬ อ ฮ ฯ ะ ั า ำ ิ ี ึ ื
+'� � � � � � � � � � � � � � � � � � � � � � � � � � � � � � � � � � � � �
 game:
 'printing boxes
 CLS
 COLOR 10
 LOCATE 23, 1
-PRINT "ษออออออออหอออออออออออออหออออออหอออออออหออออออออออหออออออออออออออออหอออออออออออป";
+PRINT "�����������������������������������������������������������������������������ͻ";
 LOCATE 24, 1
-PRINT "บ Player บ 0000000000$ บ Item บ World บ Messages บ Factory Status บ Inventory บ";
+PRINT "� Player � 0000000000$ � Item � World � Messages � Factory Status � Inventory �";
 LOCATE 25, 1
-PRINT "ศออออออออสอออออออออออออสออออออสอออออออสออออออออออสออออออออออออออออสอออออออออออผ";
+PRINT "�����������������������������������������������������������������������������ͼ";
 d1bars 1, 1, 14, 0
 a$ = dnitem$
 
@@ -220,36 +220,36 @@ SUB box (s$, x1, y1, x2, y2, c1, c2, c3)
 FOR i = 1 TO x2 - x1 - 2
         COLOR c3, 0
         LOCATE y1, x1
-        PRINT "ษ";
+        PRINT "�";
         LOCATE y1 + 1, x1
-        PRINT "บ";
+        PRINT "�";
         LOCATE y1 + 2, x1
-        PRINT "ฬ";
+        PRINT "�";
 
                 FOR j = 1 TO i
                 SOUND 21000, .03
                 COLOR c3, 0
                 LOCATE y1, x1 + j
-                PRINT "อ";
+                PRINT "�";
                 LOCATE y1 + 2, x1 + j
-                PRINT "อ";
+                PRINT "�";
                 COLOR c1, c2
                 LOCATE y1 + 1, x1 + j
                 PRINT " ";
                 NEXT
         COLOR c3, 0
         LOCATE y1, x1 + i + 1
-        PRINT "ป";
+        PRINT "�";
         LOCATE y1 + 1, x1 + i + 1
-        PRINT "บ";
+        PRINT "�";
         LOCATE y1 + 2, x1 + i + 1
-        PRINT "น";
+        PRINT "�";
         LOCATE y1 + 3, x1
-        PRINT "ศ";
+        PRINT "�";
         FOR k = x1 + 1 TO x1 + i
-        PRINT "อ";
+        PRINT "�";
         NEXT
-        PRINT "ผ";
+        PRINT "�";
 NEXT
 
 LOCATE y1 + 1, x1 + 1
@@ -264,14 +264,14 @@ FOR i = y1 + 3 TO y2
         FOR j = y1 + 3 TO i - 1
                 SOUND 21000, .1
                 LOCATE j, x1
-                PRINT "บ"; SPC(d); "บ";
+                PRINT "�"; SPC(d); "�";
         NEXT
         LOCATE i, x1
-        PRINT "ศ";
+        PRINT "�";
         FOR k = 1 TO d
-                PRINT "อ";
+                PRINT "�";
         NEXT
-        PRINT "ผ";
+        PRINT "�";
 NEXT
 
 END SUB
@@ -331,100 +331,100 @@ CASE 1
 c1 = 6
 c2 = 4
 c3 = 6
-s$ = "ฤ"
+s$ = "�"
 CASE 2
 c1 = 4
 c2 = 6
 c3 = 4
-s$ = "ฤ"
+s$ = "�"
 CASE 3
 c1 = 6
 c2 = 7
 c3 = 15
-s$ = "ฤ"
+s$ = "�"
 CASE 4
 c1 = 6
 c2 = 4
 c3 = 5
-s$ = "๘"
+s$ = "�"
 CASE 5
 c1 = 6
 c2 = 4
 c3 = 14
-s$ = "๖"
+s$ = "�"
 CASE 6
 c1 = 4
 c2 = 6
 c3 = 0
-s$ = "๖"
+s$ = "�"
 CASE 7
 c1 = 6
 c2 = 4
 c3 = 14
-s$ = "๐"
+s$ = "�"
 CASE 8
 c1 = 6
 c2 = 4
 c3 = 10
-s$ = "ื"
+s$ = "�"
 CASE 9
 c1 = 4
 c2 = 6
 c3 = 0
-s$ = "๐"
+s$ = "�"
 CASE 10
 c1 = 4
 c2 = 6
 c3 = 0
-s$ = "ื"
+s$ = "�"
 CASE 11
 c1 = 4
 c2 = 6
 c3 = 0
-s$ = "๗"
+s$ = "�"
 CASE 12
 c1 = 4
 c2 = 6
 c3 = 0
-s$ = "ฐ"
+s$ = "�"
 CASE 13
 c1 = 4
 c2 = 0
 c3 = 6
-s$ = "ฒ"
+s$ = "�"
 CASE 14
 c1 = 15
 c2 = 7
 c3 = 7
-s$ = "ฤ"
+s$ = "�"
 CASE 15
 c1 = 4
 c2 = 6
 c3 = 0
-s$ = "๘"
+s$ = "�"
 CASE ELSE
 END SELECT
 
 COLOR c1 + z, c2
 LOCATE y, x
-PRINT "ฺฤยฤยฤยฤยฤฟ";
+PRINT "���������Ŀ";
 FOR i = 1 TO 2
 LOCATE y + i, x
-PRINT "ร";
+PRINT "�";
         FOR j = 1 TO 4
         COLOR c3 + z, c2
         PRINT s$;
         COLOR c1 + z, c2
-        PRINT "ล";
+        PRINT "�";
         NEXT
 COLOR c3 + z, c2
 PRINT s$;
 COLOR c1 + z, c2
-PRINT "ด";
+PRINT "�";
 NEXT
 COLOR c1 + z, c2
 LOCATE y + 3, x
-PRINT "ภฤมฤมฤมฤมฤู";
+PRINT "�����������";
 COLOR 15, 0
 END SUB
 
@@ -434,78 +434,78 @@ SELECT CASE n
 CASE 1
 c1 = 6
 c3 = 4
-s$ = "๕"
+s$ = "�"
 CASE 2
 c1 = 6
 c3 = 7
-s$ = "อ"
+s$ = "�"
 CASE 3
 c1 = 6
 c3 = 4
-s$ = "฿"
+s$ = "�"
 CASE 4
 c1 = 4
 c3 = 6
-s$ = "ุ"
+s$ = "�"
 CASE 5
 c1 = 4
 c3 = 5
-s$ = "๗"
+s$ = "�"
 CASE 6
 c1 = 7
 c3 = 5
-s$ = ""
+s$ = "�"
 CASE 7
 c1 = 4
 c3 = 14
-s$ = "ฤ"
+s$ = "�"
 CASE 8
 c1 = 6
 c3 = 6
-s$ = ""
+s$ = "�"
 CASE 9
 c1 = 8
 c3 = 10
-s$ = "ฐ"
+s$ = "�"
 CASE 10
 c1 = 4
 c3 = 13
-s$ = ""
+s$ = "�"
 CASE 11
 c1 = 4
 c3 = 4
-s$ = "โ"
+s$ = "�"
 CASE 12
 c1 = 13
 c3 = 4
-s$ = ""
+s$ = "�"
 CASE 13
 c1 = 10
 c3 = 4
-s$ = "พ"
+s$ = "�"
 CASE 14
 c1 = 14
 c3 = 6
-s$ = "๓"
+s$ = "�"
 CASE 15
 c1 = 4
 c3 = 15
-s$ = "๘"
+s$ = "�"
 CASE ELSE
 END SELECT
 
 
 COLOR c1 + z
 LOCATE y, x
-PRINT "ึะท";
+PRINT "�з";
 LOCATE y + 1, x
-PRINT "บ";
+PRINT "�";
 COLOR c3 + z, c1
 PRINT s$;
 COLOR c1 + z, 0
-PRINT "บ";
+PRINT "�";
 LOCATE y + 2, x
-PRINT "ศอผ";
+PRINT "�ͼ";
 
 END SUB
 
@@ -529,77 +529,77 @@ SELECT CASE n
 CASE 1
 c1 = 8
 c3 = 4
-s$ = "ฐ"
+s$ = "�"
 CASE 2
 c1 = 8
 c3 = 4
-s$ = "ฒ"
+s$ = "�"
 CASE 3
 c1 = 8
 c3 = 4
-s$ = "บ"
+s$ = "�"
 CASE 4
 c1 = 4
 c3 = 6
-s$ = "๘"
+s$ = "�"
 CASE 5
 c1 = 4
 c3 = 6
-s$ = "๗"
+s$ = "�"
 CASE 6
 c1 = 6
 c3 = 4
-s$ = ""
+s$ = "�"
 CASE 7
 c1 = 4
 c3 = 5
-s$ = "๐"
+s$ = "�"
 CASE 8
 c1 = 6
 c3 = 7
-s$ = "ื"
+s$ = "�"
 CASE 9
 c1 = 4
 c3 = 14
-s$ = ""
+s$ = "�"
 CASE 10
 c1 = 4
 c3 = 10
-s$ = "๔"
+s$ = "�"
 CASE 11
 c1 = 4
 c3 = 14
-s$ = "โ"
+s$ = "�"
 CASE 12
 c1 = 15
 c3 = 4
-s$ = ""
+s$ = "�"
 CASE 13
 c1 = 7
 c3 = 6
-s$ = "พ"
+s$ = "�"
 CASE 14
 c1 = 6
 c3 = 7
-s$ = "๓"
+s$ = "�"
 CASE 15
 c1 = 4
 c3 = 14
-s$ = "๘"
+s$ = "�"
 CASE ELSE
 END SELECT
 
 COLOR c1 + z
 LOCATE y, x
-PRINT "ษอป";
+PRINT "�ͻ";
 LOCATE y + 1, x
-PRINT "บ";
+PRINT "�";
 COLOR c3 + z, c1
 PRINT s$;
 COLOR c1 + z, 0
-PRINT "บ";
+PRINT "�";
 LOCATE y + 2, x
-PRINT "ศอผ";
+PRINT "�ͼ";
 END SUB
 
 SUB d1truffles (x, y, n, c)
@@ -608,78 +608,78 @@ SELECT CASE n
 CASE 1
 c1 = 4
 c3 = 4
-s$ = ""
+s$ = "�"
 CASE 2
 c1 = 6
 c3 = 6
-s$ = ""
+s$ = "�"
 CASE 3
 c1 = 4
 c3 = 10
-s$ = "ม"
+s$ = "�"
 CASE 4
 c1 = 4
 c3 = 5
-s$ = "๘"
+s$ = "�"
 CASE 5
 c1 = 4
 c3 = 7
-s$ = "๗"
+s$ = "�"
 CASE 6
 c1 = 6
 c3 = 7
-s$ = "๐"
+s$ = "�"
 CASE 7
 c1 = 4
 c3 = 15
-s$ = "฿"
+s$ = "�"
 CASE 8
 c1 = 4
 c3 = 14
-s$ = "ฒ"
+s$ = "�"
 CASE 9
 c1 = 4
 c3 = 6
-s$ = "ฐ"
+s$ = "�"
 CASE 10
 c1 = 4
 c3 = 7
-s$ = "ฮ"
+s$ = "�"
 CASE 11
 c1 = 4
 c3 = 8
-s$ = "โ"
+s$ = "�"
 CASE 12
 c1 = 13
 c3 = 6
-s$ = "โ"
+s$ = "�"
 CASE 13
 c1 = 4
 c3 = 10
-s$ = "พ"
+s$ = "�"
 CASE 14
 c1 = 4
 c3 = 13
-s$ = "๓"
+s$ = "�"
 CASE 15
 c1 = 3
 c3 = 3
-s$ = "๘"
+s$ = "�"
 CASE ELSE
 END SELECT
 
 
 COLOR c1 + z
 LOCATE y, x
-PRINT "ึฤท";
+PRINT "�ķ";
 LOCATE y + 1, x
-PRINT "บ";
+PRINT "�";
 COLOR c3 + z, c1
 PRINT s$;
 COLOR c1 + z, 0
-PRINT "บ";
+PRINT "�";
 LOCATE y + 2, x
-PRINT "ศอผ";
+PRINT "�ͼ";
 END SUB
 
 FUNCTION dnitem$
@@ -1041,16 +1041,16 @@ CASE 2
 
 IF (n = 1) THEN COLOR 17 ELSE COLOR 1
 LOCATE 5, 30
-PRINT "  ฎ Bars ฏ";
+PRINT "  � Bars �";
 IF (n = 2) THEN COLOR 17 ELSE COLOR 1
 LOCATE 7, 30
-PRINT " ฎ Squares ฏ";
+PRINT " � Squares �";
 IF (n = 3) THEN COLOR 17 ELSE COLOR 1
 LOCATE 9, 30
-PRINT "ฎ Infusions ฏ";
+PRINT "� Infusions �";
 IF (n = 4) THEN COLOR 17 ELSE COLOR 1
 LOCATE 11, 30
-PRINT "ฎ Truffles ฏ";
+PRINT "� Truffles �";
 CASE 3
 
 IF (n = 1) THEN COLOR 10, 11 ELSE COLOR 10, 0
@@ -2112,7 +2112,7 @@ CASE "f"
 z$ = "Truffle powder"
 CASE ELSE
 END SELECT
-PRINT "๘  "; z$;
+PRINT "�  "; z$;
 ln = ln + 1
 NEXT
 
@@ -2123,36 +2123,36 @@ win13: CLS
 
 COLOR 1
 LOCATE 1, 1
-PRINT "ษอออออออออออป";
+PRINT "�����������ͻ";
 LOCATE 2, 1
-PRINT "บ           บ";
+PRINT "�           �";
 LOCATE 3, 1
-PRINT "ศอออออออออออผ";
+PRINT "�����������ͼ";
 COLOR 2
 LOCATE 1, 16
-PRINT "ษ";
+PRINT "�";
 FOR i = 17 TO 78
-PRINT "อ";
+PRINT "�";
 NEXT
-PRINT "ป";
+PRINT "�";
 LOCATE 2, 16
-PRINT "บ"; SPC(62); "บ";
+PRINT "�"; SPC(62); "�";
 LOCATE 3, 16
-PRINT "ศ";
+PRINT "�";
 FOR i = 17 TO 78
-PRINT "อ";
+PRINT "�";
 NEXT
-PRINT "ผ";
+PRINT "�";
 FOR i = 4 TO 6
 LOCATE i, 1
-PRINT "";
+PRINT "�";
 LOCATE i, 80
-PRINT "";
+PRINT "�";
 NEXT
 LOCATE 25, 1
-PRINT "";
+PRINT "�";
 LOCATE 25, 80
-PRINT "";
+PRINT "�";
 
 COLOR 4
 LOCATE 2, 3
@@ -2296,26 +2296,26 @@ FUNCTION win2$ (na, xa)
 CLS
 COLOR 1
 LOCATE 1, 1
-PRINT "ษอออออออออออป";
+PRINT "�����������ͻ";
 LOCATE 2, 1
-PRINT "บ           บ";
+PRINT "�           �";
 LOCATE 3, 1
-PRINT "ศอออออออออออผ";
+PRINT "�����������ͼ";
 COLOR 2
 LOCATE 1, 16
-PRINT "ษ";
+PRINT "�";
 FOR i = 17 TO 78
-PRINT "อ";
+PRINT "�";
 NEXT
-PRINT "ป";
+PRINT "�";
 LOCATE 2, 16
-PRINT "บ"; SPC(62); "บ";
+PRINT "�"; SPC(62); "�";
 LOCATE 3, 16
-PRINT "ศ";
+PRINT "�";
 FOR i = 17 TO 78
-PRINT "อ";
+PRINT "�";
 NEXT
-PRINT "ผ";
+PRINT "�";
 LOCATE 2, 3
 COLOR 3
 SELECT CASE na
@@ -2370,18 +2370,18 @@ END FUNCTION
 FUNCTION world
 COLOR 1
 LOCATE 1, 1
-PRINT "ษอออออออออออป";
+PRINT "�����������ͻ";
 LOCATE 2, 1
-PRINT "บ           บ";
+PRINT "�           �";
 LOCATE 3, 1
-PRINT "ศอออออออออออผ";
+PRINT "�����������ͼ";
 COLOR 2
 LOCATE 2, 3
 PRINT "World";
 COLOR 3
 FOR i = 20 TO 25
 LOCATE i, 1
-PRINT ""; SPC(78); "";
+PRINT "�"; SPC(78); "�";
 NEXT
 
 ps = 1
