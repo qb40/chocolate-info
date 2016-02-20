@@ -9,35 +9,35 @@ All required information is taken from [Chocolatier](http://en.wikipedia.org/wik
 
 ##demo
 
-<img src="/assets/img/0.png" width="70%"><br/>
+<img src="https://raw.githubusercontent.com/wolfram77/qb-choco-info/gh-pages/0/image/0.png" width="70%"><br/>
 Select `Browse Chocolates` at main menu.
 <br/><br/>
 
 
-<img src="/assets/img/1.png" width="70%"><br/>
+<img src="https://raw.githubusercontent.com/wolfram77/qb-choco-info/gh-pages/0/image/1.png" width="70%"><br/>
 `Items` menu after `Browse Chocolates`.
 <br/><br/>
 
 
-<img src="/assets/img/2.png" width="70%"><br/>
-<img src="/assets/img/3.png" width="70%"><br/>
+<img src="https://raw.githubusercontent.com/wolfram77/qb-choco-info/gh-pages/0/image/2.png" width="70%"><br/>
+<img src="https://raw.githubusercontent.com/wolfram77/qb-choco-info/gh-pages/0/image/3.png" width="70%"><br/>
 Collection of Cholocate `Bars`.
 <br/><br/>
 
 
-<img src="/assets/img/4.png" width="70%"><br/>
-<img src="/assets/img/5.png" width="70%"><br/>
+<img src="https://raw.githubusercontent.com/wolfram77/qb-choco-info/gh-pages/0/image/4.png" width="70%"><br/>
+<img src="https://raw.githubusercontent.com/wolfram77/qb-choco-info/gh-pages/0/image/5.png" width="70%"><br/>
 Collection of Cholocate `Squares`.
 <br/><br/>
 
 
-<img src="/assets/img/6.png" width="70%"><br/>
-<img src="/assets/img/7.png" width="70%"><br/>
+<img src="https://raw.githubusercontent.com/wolfram77/qb-choco-info/gh-pages/0/image/6.png" width="70%"><br/>
+<img src="https://raw.githubusercontent.com/wolfram77/qb-choco-info/gh-pages/0/image/7.png" width="70%"><br/>
 Collection of Cholocate `Infusions`.
 <br/><br/>
 
 
-<img src="/assets/img/8.png" width="70%"><br/>
-<img src="/assets/img/9.png" width="70%"><br/>
+<img src="https://raw.githubusercontent.com/wolfram77/qb-choco-info/gh-pages/0/image/8.png" width="70%"><br/>
+<img src="https://raw.githubusercontent.com/wolfram77/qb-choco-info/gh-pages/0/image/9.png" width="70%"><br/>
 Collection of Cholocate `Truffles`.
 <br/><br/>
