@@ -1,13 +1,10 @@
-# chocoinfo
-
-**chocoinfo** is a tiny ascii-art based chocolate info program in dos.
-It is interesting to see how people across the world have tried, mixing various
+**chocoinfo** is a tiny ASCII-art based chocolate info program in DOS. It is
+interesting to see how people across the world have tried, mixing various
 ingredients with basic chocolates to makes amazing (and wierd) new tastes. After
-all, chocoloate is a good source of energy and passion.
-All required information is taken from [Chocolatier](http://en.wikipedia.org/wiki/Chocolatier_%28video_game%29).
+all, chocoloate is a good source of energy and passion. All required information
+is taken from [Chocolatier].
 
-
-##demo
+<br>
 
 <img src="https://raw.githubusercontent.com/qb40/chocoinfo/gh-pages/0/image/0.png" width="70%"><br/>
 Select `Browse Chocolates` at main menu.
@@ -44,3 +41,5 @@ Collection of Cholocate `Truffles`.
 
 
 [![qb40](https://i.imgur.com/xAWLn0I.jpg)](https://qb40.github.io)
+
+[Chocolatier]: https://en.wikipedia.org/wiki/Chocolatier_(video_game)
